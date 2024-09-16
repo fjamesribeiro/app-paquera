@@ -1,0 +1,72 @@
+# Maven / Gradle
+target/
+out/
+*.log
+*.war
+*.jar
+
+# Compiled class files
+*.class
+
+# Spring Boot specific
+*.properties
+*.yml
+*.yaml
+
+# STS specific
+.springBeans
+.settings/
+.bnd/
+.mvn/
+.classpath
+.project
+
+# Eclipse specific
+*.pydevproject
+.metadata
+*.bak
+*.tmp
+*.swp
+*.swo
+*.patch
+*.orig
+*.rej
+local-history/
+remote-system-temp-files/
+servers/
+*.launch
+
+# IntelliJ specific
+.idea/
+*.iml
+*.iws
+.idea_modules/
+*.ipr
+.DS_Store
+
+# Windows specific
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# macOS specific
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Logs and runtime
+logs/
+*.log
+*.pid
+*.seed
+*.pid.lock
+hs_err_pid*
+.recommenders
+
+# IDE-specific files
+.vscode/
+
+# Temporary files
+tmp/
+temp/
+
