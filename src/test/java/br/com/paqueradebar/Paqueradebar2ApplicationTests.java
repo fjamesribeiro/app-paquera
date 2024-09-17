@@ -1,5 +1,5 @@
-package br.com.paqueradebar2;
-
+package br.com.paqueradebar;
+//teste
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

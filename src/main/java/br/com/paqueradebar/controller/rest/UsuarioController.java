@@ -1,4 +1,4 @@
-package br.com.paqueradebar.controller;
+package br.com.paqueradebar.controller.rest;
 
 import java.util.List;
 
@@ -39,6 +39,7 @@ public class UsuarioController {
 
 	@PostMapping
 	public ResponseEntity<Usuario> createUsuario(@Valid @RequestBody Usuario usuario) {
+		log.info(usuario.toString());
 		return new ResponseEntity<>(service.create(usuario), HttpStatus.CREATED);
 	}
 

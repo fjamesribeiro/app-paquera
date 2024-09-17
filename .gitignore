@@ -1,5 +1,6 @@
 # Maven / Gradle
 target/
+test/
 out/
 *.log
 *.war
@@ -69,4 +70,3 @@ hs_err_pid*
 # Temporary files
 tmp/
 temp/
-

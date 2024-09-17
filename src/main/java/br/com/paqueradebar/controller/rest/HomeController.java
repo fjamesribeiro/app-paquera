@@ -1,15 +1,10 @@
-package br.com.paqueradebar.controller;
+package br.com.paqueradebar.controller.rest;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HomeController {
-
-	@GetMapping("/")
-	public String home() {
-		return "TE AMO minha morango do nordeste, esse nosso app vai bombar!!";
-	}
 
 	@GetMapping("/oauth")
 	public String secured() {

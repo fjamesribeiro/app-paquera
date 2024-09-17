@@ -1,4 +1,4 @@
-package br.com.paqueradebar.exception.handler;
+package br.com.paqueradebar.exception;
 
 import java.util.HashMap;
 import java.util.Map;
