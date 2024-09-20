@@ -1,0 +1,24 @@
+spring: 
+  security:
+    oauth2:
+      client:
+        registration:   
+          google:   
+            client-id: 216537186912-5nip7levqof03hcajdv5901hv5gqufl0.apps.googleusercontent.com
+            client-secret: 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    
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect  # Dialeto SQL do PostgreSQL
+        format_sql: true
+        hbm2ddl:
+          auto: update  # Pode ser 'create', 'create-drop' ou 'update'
+
+logging:
+  level:
+    root: info 
+    org:
+      springframework:
+        web: ERROR

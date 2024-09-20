@@ -1,0 +1,30 @@
+
+services:
+  db:
+    image: postgres:13
+    container_name: postgres
+    environment:
+      POSTGRES_DB: dbpaquera
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: j@mEm1c
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api-paquera
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/dbpaquera
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: j@mEm1c
+
+volumes:
+  postgres_data:

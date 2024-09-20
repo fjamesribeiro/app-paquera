@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.paqueradebar.exception.ResourceNotFoundException;
 import br.com.paqueradebar.model.Usuario;
 import br.com.paqueradebar.repository.UsuarioRepository;
 import br.com.paqueradebar.util.Util;
@@ -26,7 +27,7 @@ public class UsuarioService implements iCRUDService<Usuario> {
 	@Override
 	public Usuario findById(Long id) {
 		log.info("Buscando usuario");
-		return repository.findById(id).orElseThrow(() -> new RuntimeException("No records found for this ID: " + id));
+		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID: " + id));
 	}
 
 	@Override
@@ -35,7 +36,7 @@ public class UsuarioService implements iCRUDService<Usuario> {
 
 		// Encontre o usuário existente no banco de dados
 		Usuario user = repository.findById(t.getId())
-				.orElseThrow(() -> new RuntimeException("No record found for this ID: " + t.getId()));
+				.orElseThrow(() -> new ResourceNotFoundException("No record found for this ID: " + t.getId()));
 
 		// Atualize as propriedades da entidade existente com os valores do DTO
 		try {
@@ -58,7 +59,7 @@ public class UsuarioService implements iCRUDService<Usuario> {
 	public void delete(Long id) {
 		log.info("Deletando usuario");
 		var user = repository.findById(id)
-				.orElseThrow(() -> new RuntimeException("No record found for this ID: " + id));
+				.orElseThrow(() -> new ResourceNotFoundException("No record found for this ID: " + id));
 
 		repository.delete(user);
 	}

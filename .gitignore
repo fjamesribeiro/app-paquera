@@ -1,21 +1,19 @@
 # Maven / Gradle
 target/
 test/
+bin/
 out/
 *.log
 *.war
 *.jar
+*.txt
 
 # Compiled class files
 *.class
 
-# Spring Boot specific
-*.properties
-*.yml
-*.yaml
-
 # STS specific
 .springBeans
+.factorypath
 .settings/
 .bnd/
 .mvn/

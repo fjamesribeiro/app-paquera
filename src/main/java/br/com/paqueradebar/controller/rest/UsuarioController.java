@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.paqueradebar.model.Usuario;
 import br.com.paqueradebar.service.UsuarioService;
-import jakarta.validation.Valid;
+import br.com.paqueradebar.validation.Create;
+import br.com.paqueradebar.validation.Update;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -38,13 +40,13 @@ public class UsuarioController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Usuario> createUsuario(@Valid @RequestBody Usuario usuario) {
+	public ResponseEntity<Usuario> createUsuario(@Validated(Create.class) @RequestBody Usuario usuario) {
 		log.info(usuario.toString());
 		return new ResponseEntity<>(service.create(usuario), HttpStatus.CREATED);
 	}
 
 	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Usuario update(@Valid @RequestBody Usuario dto) {
+	public Usuario update(@Validated(Update.class) @RequestBody Usuario dto) {
 		return service.update(dto);
 	}
 
