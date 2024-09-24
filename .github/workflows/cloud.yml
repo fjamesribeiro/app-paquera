@@ -8,5 +8,5 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checout Code
-      - uses: actions/checout@v3
+      - name: Checkout Code
+      - uses: actions/checkout@v3
