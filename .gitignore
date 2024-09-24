@@ -6,6 +6,11 @@ out/
 *.war
 *.jar
 
+# Ignore arquivos de configuração que contenham segredos
+application-secret.yml
+.env
+
+
 # Compiled class files
 *.class
 
