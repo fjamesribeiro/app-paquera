@@ -1,0 +1,12 @@
+name: CI/CD Pipeline for App Paquera
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checout Code
+      - uses: actions/checout@v3
