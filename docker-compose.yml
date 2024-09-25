@@ -5,7 +5,6 @@ services:
     environment:
       POSTGRES_DB: dbpaquera
       POSTGRES_USER: admin
-<<<<<<< HEAD
       POSTGRES_PASSWORD: j@mEm1c
     ports:
       - "5432:5432"
@@ -25,27 +24,3 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/dbpaquera
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: j@mEm1c
-=======
-      POSTGRES_PASSWORD: j@m&m1c
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: api-paqueradebar
-    ports:
-      - "8081:8081"
-    depends_on:
-      - db
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/dbpaquera
-      SPRING_DATASOURCE_USERNAME: admin
-      SPRING_DATASOURCE_PASSWORD: j@m&m1c
->>>>>>> branch 'main' of https://github.com/fjamesribeiro/app-paquera.git
-
-volumes:
-  postgres_data:
