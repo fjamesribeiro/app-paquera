@@ -1,3 +1,22 @@
 spring:
+<<<<<<< HEAD
   profiles:
     active: local  
+=======
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+server:
+  port: 8081
+
+logging: 
+  level: 
+    root: INFO
+    org:
+      springframework:
+        web: INFO
+      hibernate:
+        SQL: INFO
+>>>>>>> branch 'main' of https://github.com/fjamesribeiro/app-paquera.git

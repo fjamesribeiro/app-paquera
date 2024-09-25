@@ -8,7 +8,7 @@ public class HomeController {
 
 	@GetMapping("/oauth")
 	public String secured() {
-		return "Vocẽ logou com o Google no APP de PAQUERA";
+		return "oauthoauthoauthoauthoauthoauthoauthoauthoauthoauthoauthoauthoauthoauthoauthoauthoauthoauthoauthoauthoauth";
 	}
 
 }
