@@ -6,10 +6,8 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    
-    steps:
-    
+    runs-on: ubuntu-latest    
+    steps:    
       - name: Checkout Code
         uses: actions/checkout@v3
 
@@ -34,3 +32,12 @@ jobs:
   deploy:
     needs: build
     runs-on: self-hosted
+    steps:
+      - name: Pull image from docker hub
+        run: docker pull jamesribeiro/api-paqueradebar        
+      - name: Run docker container
+        run: docker run -d -p 8080:8080 --name api-paqueradebar jamesribeiro/api-paqueradebar
+        
+        
+        
+        
