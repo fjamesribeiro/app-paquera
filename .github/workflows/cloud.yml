@@ -1,4 +1,4 @@
-name: CI/CD Pipeline for App Paquera
+name: Pipeline for App Paquera on Cloud
 
 on:
   push:
@@ -10,3 +10,13 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+         distribution: 'temurin'
+         java-version: '17'
+
+      - name: Setup Java
+        run: mvn clean install -DskipTests 
+		 
