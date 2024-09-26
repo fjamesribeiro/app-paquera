@@ -2,7 +2,7 @@ spring:
   datasource:
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
-    url: jdbc:postgresql://localhost:5432/dbpaquera
+    url: ${DATABASE_URL}
     driver-class-name: org.postgresql.Driver  # Driver JDBC do PostgreSQL
             
   jpa:
