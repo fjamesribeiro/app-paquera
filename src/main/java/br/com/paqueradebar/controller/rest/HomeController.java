@@ -13,7 +13,7 @@ public class HomeController {
 
 	@GetMapping("/")
 	public String home() {
-		return "página inicial";
+		return "MICHELE, EU TE AMO!!";
 	}
 
 }
