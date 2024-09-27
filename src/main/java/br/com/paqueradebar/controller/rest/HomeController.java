@@ -10,10 +10,4 @@ public class HomeController {
 	public String secured() {
 		return "oauth";
 	}
-
-	@GetMapping("/")
-	public String home() {
-		return "Bem vindo ao app paquera de bar";
-	}
-
 }

@@ -2,12 +2,58 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Home</title>
+	<meta charset="UTF-8">
+	<title>Profile Page</title>
+	<style>
+		table {
+			width: 50%;
+			border-collapse: collapse;
+			margin: 25px 0;
+			font-size: 18px;
+			text-align: left;
+		}
+
+		th,
+		td {
+			padding: 12px;
+			border-bottom: 1px solid #ddd;
+		}
+
+		img {
+			width: 100px;
+			height: 100px;
+			border-radius: 50%;
+		}
+	</style>
 </head>
 
-
 <body>
-	<h1>Bem vindo <span th:text="${name}"></span></h1>
+	<h2>User Profile</h2>
+
+	<table>
+		<tr>
+			<th>Dados</th>
+			<th>Valor</th>
+		</tr>
+		<tr>
+			<td>Nome</td>
+			<td th:text="${given_name}"></td>
+		</tr>
+		<tr>
+			<td>Sobrenome</td>
+			<td th:text="${family_name}"></td>
+		</tr>
+		<tr>
+			<td>Email</td>
+			<td th:text="${email}"></td>
+		</tr>
+		<tr>
+			<td>Picture</td>
+			<td><img th:src="${picture}" alt="Profile Picture"></td>
+		</tr>
+	</table>
+		<li><a th:href="@{/usuario/create}" class="dropdown-item">Completar Cadastro</a></li>
+	
 </body>
 
 </html>

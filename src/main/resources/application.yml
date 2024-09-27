@@ -4,7 +4,17 @@ spring:
     password: ${DATABASE_PASSWORD}
     url: ${DATABASE_URL}
     driver-class-name: org.postgresql.Driver  # Driver JDBC do PostgreSQL
-            
+    
+  security:
+    oauth2:
+      client:
+        registration:   
+          google:   
+            client-id: 216537186912-5nip7levqof03hcajdv5901hv5gqufl0.apps.googleusercontent.com
+            client-secret: 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    
+            redirect-uri: http://localhost:8080/login/oauth2/code/google
+            scope: profile,email
+
   jpa:
     show-sql: true
     properties:
@@ -24,3 +34,5 @@ logging:
     org:
       springframework:
         web: ERROR
+  pattern:
+    console: "%m%n"
