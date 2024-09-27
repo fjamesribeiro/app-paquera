@@ -8,7 +8,12 @@ public class HomeController {
 
 	@GetMapping("/oauth")
 	public String secured() {
-		return "oauthoauthoauthoauthoauthoauthoauthoauthoauthoauthoauthoauthoauthoauthoauthoauthoauthoauthoauthoauthoauth";
+		return "oauth";
+	}
+
+	@GetMapping("/")
+	public String home() {
+		return "página inicial";
 	}
 
 }
