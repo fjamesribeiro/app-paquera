@@ -13,7 +13,7 @@ public class HomeController {
 
 	@GetMapping("/")
 	public String home() {
-		return "MICHELE, EU TE AMO!!";
+		return "Bem vindo ao app paquera de bar";
 	}
 
 }
