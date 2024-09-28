@@ -21,8 +21,8 @@ public class UsuarioControllerVw {
 	public ModelAndView create() {
 		ModelAndView andView = new ModelAndView("/usuario/create");
 		Usuario usuario = new Usuario();
-		usuario.setEmail(null)
-		andView.addObject("usuario", dto);
+		usuario.setEmail(null);
+		andView.addObject("usuario", usuario);
 		return andView;
 	}
 }

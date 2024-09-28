@@ -1,24 +1,41 @@
 package br.com.paqueradebar.controller.view;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
+import br.com.paqueradebar.model.Usuario;
+import br.com.paqueradebar.service.UsuarioService;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class Home {
 
+	@Autowired
+	UsuarioService service;
+
 	@GetMapping("/home")
-	public String home(Model model, @AuthenticationPrincipal OAuth2User auth2User) {
-		model.addAttribute("given_name", auth2User.getAttribute("given_name"));
-		model.addAttribute("family_name", auth2User.getAttribute("family_name"));
-		model.addAttribute("email", auth2User.getAttribute("email"));
-		model.addAttribute("picture", auth2User.getAttribute("picture"));
-		return "/home";
+	public ModelAndView home(@AuthenticationPrincipal OAuth2AuthenticatedPrincipal authentication) {
+		ModelAndView model = new ModelAndView("/usuario/create");
+		String nome = authentication.getAttribute("given_name");
+		String sobrenome = authentication.getAttribute("family_name");
+		String email = authentication.getAttribute("email");
+		
+		Usuario usuario = new Usuario();
+		usuario.setEmail(email);
+		model.addObject("usuario", usuario);
+//		return andView;
+//		
+//		
+//		model.addAttribute("nome", nome);
+//		model.addAttribute("sobrenome", sobrenome);
+//		model.addAttribute("email", email);
+
+		return model;
 	}
 
 	@GetMapping("/login")
