@@ -18,7 +18,7 @@
 		<div class="row">
 			<div class="mt-3 mb-3 d-flex justify-content-between">
 				<div class="sm-9">
-					Bem-vindo: <label class="form-label" sec:authentication="name" />
+					Bem-vindo: <label class="form-label" ${#authenticationf.getPrincipal().getName()} />
 				</div>
 				<div class="sm d-flex justify-content-end">
 					<form th:action="@{/logout}" method="post">

@@ -11,14 +11,16 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecConfig {
 
 	@Bean
-	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
-		http.authorizeHttpRequests(auth -> auth.requestMatchers("/", "/login", "/css/**", "/images/**", "/js/**")
-				.permitAll().anyRequest().authenticated())
-				.oauth2Login(oauth -> oauth.loginPage("/login").defaultSuccessUrl("/home", true)).logout()
-				.logoutUrl("/perform-logout").logoutSuccessUrl("/") // Redirecionar após o logout
-				.invalidateHttpSession(true) // Invalida a sessão do usuário
-				.deleteCookies("JSESSIONID"); // Remove o cookie de sessão
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http.csrf(csrf -> csrf.disable()) // Desabilita CSRF
+				.authorizeHttpRequests(authz -> authz.requestMatchers("/login/**", "/oauth2/**").permitAll() // Permite
+																												// acesso
+																												// sem
+																												// autenticação
+						.anyRequest().authenticated() // Requer autenticação para todas as outras requisições
+				).oauth2Login(oauth2 -> oauth2.defaultSuccessUrl("/home") // URL após o login bem-sucedido
+						.failureUrl("/login?error=true") // URL em caso de falha no login
+				).oauth2ResourceServer(oauth2 -> oauth2.jwt()); // Configura o servidor de recursos para aceitar JWT
 		return http.build();
 	}
 }

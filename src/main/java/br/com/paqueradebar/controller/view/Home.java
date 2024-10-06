@@ -1,8 +1,6 @@
 package br.com.paqueradebar.controller.view;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,23 +16,27 @@ public class Home {
 	@Autowired
 	UsuarioService service;
 
-	@GetMapping("/home")
-	public ModelAndView home(@AuthenticationPrincipal OAuth2AuthenticatedPrincipal authentication) {
-		ModelAndView model = new ModelAndView("/usuario/create");
-		String nome = authentication.getAttribute("given_name");
-		String sobrenome = authentication.getAttribute("family_name");
-		String email = authentication.getAttribute("email");
-		
-		Usuario usuario = new Usuario();
-		usuario.setEmail(email);
-		model.addObject("usuario", usuario);
-//		return andView;
-//		
-//		
-//		model.addAttribute("nome", nome);
-//		model.addAttribute("sobrenome", sobrenome);
-//		model.addAttribute("email", email);
+//	@GetMapping("/home")
+//	public ModelAndView home(@AuthenticationPrincipal OAuth2AuthenticatedPrincipal authentication) {
+//		ModelAndView model = new ModelAndView("/usuario/create");
+//		String nome = authentication.getAttribute("given_name");
+//		String sobrenome = authentication.getAttribute("family_name");
+//		String email = authentication.getAttribute("email");
+//
+//		Usuario usuario = new Usuario();
+//		usuario.setEmail(email);
+//		usuario.setNome(nome);
+//		usuario.setSobrenome(sobrenome);
+//		model.addObject("usuario", usuario);
+//
+//		return model;
+//	}
 
+	@GetMapping("/")
+	public ModelAndView home() {
+		ModelAndView model = new ModelAndView("/usuario/create");
+		Usuario usuario = new Usuario();
+		model.addObject("usuario", usuario);
 		return model;
 	}
 
