@@ -16,37 +16,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.paqueradebar.model.Usuario;
-import br.com.paqueradebar.service.UsuarioService;
+import br.com.paqueradebar.model.Admin;
+import br.com.paqueradebar.service.AdminService;
 import br.com.paqueradebar.validation.Create;
 import br.com.paqueradebar.validation.Update;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/usuario")
+@RequestMapping("/admin")
 @Slf4j
-public class UsuarioController {
+public class AdminController {
 	@Autowired
-	private UsuarioService service;
+	private AdminService service;
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Usuario> findAll() {
+	public List<Admin> findAll() {
 		return service.findAll();
 	}
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Usuario findById(@PathVariable Long id) {
+	public Admin findById(@PathVariable Long id) {
 		return service.findById(id);
 	}
 
 	@PostMapping
-	public ResponseEntity<Usuario> createUsuario(@Validated(Create.class) @RequestBody Usuario usuario) {
+	public ResponseEntity<Admin> createAdmin(@Validated(Create.class) @RequestBody Admin usuario) {
 		log.info(usuario.toString());
 		return new ResponseEntity<>(service.create(usuario), HttpStatus.CREATED);
 	}
 
 	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Usuario update(@Validated(Update.class) @RequestBody Usuario dto) {
+	public Admin update(@Validated(Update.class) @RequestBody Admin dto) {
 		return service.update(dto);
 	}
 

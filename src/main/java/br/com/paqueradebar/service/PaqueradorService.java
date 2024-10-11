@@ -1,41 +1,52 @@
 package br.com.paqueradebar.service;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.paqueradebar.exception.ResourceNotFoundException;
-import br.com.paqueradebar.model.Usuario;
-import br.com.paqueradebar.repository.UsuarioRepository;
+import br.com.paqueradebar.model.Paquerador;
+import br.com.paqueradebar.model.RoleName;
+import br.com.paqueradebar.repository.PaqueradorRepository;
+import br.com.paqueradebar.repository.RoleRepository;
 import br.com.paqueradebar.util.Util;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class UsuarioService implements iCRUDService<Usuario> {
+public class PaqueradorService implements iCRUDService<Paquerador> {
 
 	@Autowired
-	private UsuarioRepository repository;
+	private PaqueradorRepository repository;
+
+	@Autowired
+	private RoleRepository roleRepository;
+
+	@Autowired
+	private PasswordEncoder encoder;
 
 	@Override
-	public List<Usuario> findAll() {
+	public List<Paquerador> findAll() {
 		log.info("Buscando todos usuarios");
 		return repository.findAll();
 	}
 
 	@Override
-	public Usuario findById(Long id) {
+	public Paquerador findById(Long id) {
 		log.info("Buscando usuario");
-		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID: " + id));
+		return repository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID: " + id));
 	}
 
 	@Override
-	public Usuario update(Usuario t) {
+	public Paquerador update(Paquerador t) {
 		log.info("Atualizando usuario");
 
 		// Encontre o usuário existente no banco de dados
-		Usuario user = repository.findById(t.getId())
+		Paquerador user = repository.findById(t.getId())
 				.orElseThrow(() -> new ResourceNotFoundException("No record found for this ID: " + t.getId()));
 
 		// Atualize as propriedades da entidade existente com os valores do DTO
@@ -50,8 +61,14 @@ public class UsuarioService implements iCRUDService<Usuario> {
 	}
 
 	@Override
-	public Usuario create(Usuario t) {
+	public Paquerador create(Paquerador t) {
 		log.info("Criando usuario");
+
+		var role = roleRepository.findByNome(RoleName.USER);
+		t.setRoles(Set.of(role));
+
+		t.setSenha(encoder.encode(t.getSenha()));
+
 		return repository.save(t);
 	}
 

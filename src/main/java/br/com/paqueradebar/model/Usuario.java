@@ -1,21 +1,25 @@
 package br.com.paqueradebar.model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Set;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import br.com.paqueradebar.validation.Create;
 import br.com.paqueradebar.validation.Update;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -26,7 +30,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Usuario implements Serializable {
+public class Usuario implements Serializable, UserDetails {
 
 	private static final long serialVersionUID = 1L;
 
@@ -50,52 +54,52 @@ public class Usuario implements Serializable {
 	@Column(name = "email", unique = true, nullable = false)
 	private String email;
 
-	@NotBlank(groups = Create.class, message = "O whatsapp é obrigatório")
-	@Pattern(groups = { Create.class,
-			Update.class }, regexp = "\\(\\d{2}\\)(9\\d{4}-\\d{4}|99999-9999)", message = "Formato de whatsapp inválido. O formato correto é (XX)XXXXX-XXXX, exceto quando for (XX)99999-9999")
-	@Column(name = "whatsapp", nullable = false)
-	private String whatsapp;
+	@Column(name = "senha", nullable = false)
+	private String senha;
 
-	@NotNull(groups = Create.class, message = "A data de nascimento é obrigatório")
-	@Column(name = "dtnascimento", nullable = false)
-	@DateTimeFormat(pattern = "dd/MM/YYYY")
-	@JsonFormat(pattern = "dd/MM/yyyy")
-	private LocalDate dtnascimento;
+	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@JoinTable(name = "usuario_roles", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles;
 
-	@NotBlank(groups = Create.class, message = "O sexo é obrigatório")
-	@Column(name = "sexo", nullable = false)
-	@Pattern(groups = { Create.class, Update.class }, regexp = "^[mMfF]$", message = "O sexo deve ser 'M' ou 'F'")
-	private String sexo;
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return this.roles;
+	}
 
-	@NotBlank(groups = Create.class, message = "O interesse é obrigatório")
-	@Column(name = "interesse", nullable = false)
-	@Pattern(groups = { Create.class,
-			Update.class }, regexp = "^[mMfFAa]$", message = "O interesse deve ser 'M', 'F' ou 'A'")
-	private String interesse;
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return this.getSenha();
+	}
 
-	@Column(name = "cidade")
-	@Size(groups = { Create.class, Update.class }, min = 3, message = "A cidade deve ter no mínimo 3 caracteres")
-	private String cidade;
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.getEmail();
+	}
 
-	@Column(name = "estado")
-	@Pattern(groups = { Create.class,
-			Update.class }, regexp = "^[a-zA-Z]{2}$", message = "O estado deve conter exatamente duas letras")
-	private String estado;
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 
-	@Size(groups = { Create.class, Update.class }, min = 2, message = "A profissao deve ter no mínimo 2 caracteres")
-	@Column(name = "profissao")
-	private String profissao;
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 
-	@Size(groups = { Create.class, Update.class }, min = 2, message = "A escolaridade deve ter no mínimo 2 caracteres")
-	@Column(name = "escolaridade")
-	private String escolaridade;
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 
-	@Size(groups = { Create.class, Update.class }, min = 2, message = "A descricao deve ter no mínimo 2 caracteres")
-	@Column(name = "descricao")
-	private String descricao;
-
-	@Size(groups = { Create.class, Update.class }, min = 2, message = "Os lugares deve ter no mínimo 2 caracteres")
-	@Column(name = "lugares")
-	private String lugares;
-
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

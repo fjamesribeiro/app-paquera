@@ -12,8 +12,13 @@ spring:
           google:   
             client-id: 216537186912-5nip7levqof03hcajdv5901hv5gqufl0.apps.googleusercontent.com
             client-secret: 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    
-            redirect-uri: http://localhost:8080/login/oauth2/code/google
             scope: profile,email
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+            user-name-attribute: sub
 
   jpa:
     show-sql: true

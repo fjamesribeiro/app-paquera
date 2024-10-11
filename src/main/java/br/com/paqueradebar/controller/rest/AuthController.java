@@ -9,6 +9,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthController {
 
+	@GetMapping("/login")
+	public String getToken(Authentication authentication) {
+		OAuth2AuthenticationToken authToken = (OAuth2AuthenticationToken) authentication;
+		OAuth2User user = authToken.getPrincipal();
+
+		String token = (String) user.getAttributes().get("id_token");
+
+		return token; // Retorna o JWT token como resposta
+	}
+	
 	@GetMapping("/token")
 	public String getToken(Authentication authentication) {
 		OAuth2AuthenticationToken authToken = (OAuth2AuthenticationToken) authentication;
@@ -18,4 +28,5 @@ public class AuthController {
 
 		return token; // Retorna o JWT token como resposta
 	}
+	
 }
