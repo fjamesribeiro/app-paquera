@@ -7,20 +7,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.com.paqueradebar.dto.UserAdditionalInfoDTO;
+import br.com.paqueradebar.dto.UserDTO;
+import br.com.paqueradebar.dto.UserRegistrationDTO;
+import br.com.paqueradebar.dto.mapper.UsuarioMapper;
 import br.com.paqueradebar.exception.ResourceNotFoundException;
-import br.com.paqueradebar.model.Paquerador;
 import br.com.paqueradebar.model.RoleName;
-import br.com.paqueradebar.repository.PaqueradorRepository;
+import br.com.paqueradebar.model.Usuario;
 import br.com.paqueradebar.repository.RoleRepository;
+import br.com.paqueradebar.repository.UsuarioRepository;
 import br.com.paqueradebar.util.Util;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class PaqueradorService implements iCRUDService<Paquerador> {
+public class UsuarioService {
 
 	@Autowired
-	private PaqueradorRepository repository;
+	private UsuarioRepository repository;
 
 	@Autowired
 	private RoleRepository roleRepository;
@@ -28,25 +32,25 @@ public class PaqueradorService implements iCRUDService<Paquerador> {
 	@Autowired
 	private PasswordEncoder encoder;
 
-	@Override
-	public List<Paquerador> findAll() {
+	@Autowired
+	private UsuarioMapper mapper;
+
+	public List<UserDTO> findAll() {
 		log.info("Buscando todos usuarios");
-		return repository.findAll();
+		return mapper.toListUserDTO(repository.findAll());
 	}
 
-	@Override
-	public Paquerador findById(Long id) {
+	public Usuario findById(Long id) {
 		log.info("Buscando usuario");
 		return repository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID: " + id));
 	}
 
-	@Override
-	public Paquerador update(Paquerador t) {
+	public Usuario update(Usuario t) {
 		log.info("Atualizando usuario");
 
 		// Encontre o usuário existente no banco de dados
-		Paquerador user = repository.findById(t.getId())
+		Usuario user = repository.findById(t.getId())
 				.orElseThrow(() -> new ResourceNotFoundException("No record found for this ID: " + t.getId()));
 
 		// Atualize as propriedades da entidade existente com os valores do DTO
@@ -60,19 +64,32 @@ public class PaqueradorService implements iCRUDService<Paquerador> {
 		return repository.save(user);
 	}
 
-	@Override
-	public Paquerador create(Paquerador t) {
-		log.info("Criando usuario");
+	public UserDTO completeCadUser(UserAdditionalInfoDTO t) {
+		log.info("Completando Cad User");
 
-		var role = roleRepository.findByNome(RoleName.USER);
-		t.setRoles(Set.of(role));
+		Usuario usuario = repository.findByEmail(t.getEmail())
+				.orElseThrow(() -> new ResourceNotFoundException("No records found for this email: " + t.getEmail()));
 
-		t.setSenha(encoder.encode(t.getSenha()));
+		Util.copyProperties(t, usuario);
+		repository.save(usuario);
 
-		return repository.save(t);
+		return mapper.toUserDTO(usuario);
 	}
 
-	@Override
+	public UserDTO createLoginUser(UserRegistrationDTO t) {
+		log.info("Criando createUserRegistration");
+
+		Usuario usuario = mapper.toEntity(t);
+
+		var role = roleRepository.findByNome(RoleName.USER.toString());
+		t.setRoles(Set.of(role));
+
+		usuario.setSenha(encoder.encode(t.getSenha()));
+		repository.save(usuario);
+
+		return mapper.toUserDTO(usuario);
+	}
+
 	public void delete(Long id) {
 		log.info("Deletando usuario");
 		var user = repository.findById(id)

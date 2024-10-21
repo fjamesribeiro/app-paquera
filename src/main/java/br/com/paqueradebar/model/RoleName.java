@@ -8,7 +8,7 @@ import lombok.Getter;
 public enum RoleName {
 
 	ADMIN, USER;
-	
+
 	@Override
 	public String toString() {
 		return this.name();
