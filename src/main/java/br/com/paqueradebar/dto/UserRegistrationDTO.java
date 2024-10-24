@@ -2,8 +2,8 @@ package br.com.paqueradebar.dto;
 
 import java.util.Set;
 
-import br.com.paqueradebar.validation.Create;
-import br.com.paqueradebar.validation.Update;
+import br.com.paqueradebar.config.validation.Create;
+import br.com.paqueradebar.config.validation.Update;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;

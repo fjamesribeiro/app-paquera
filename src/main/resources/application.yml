@@ -44,5 +44,8 @@ logging:
        file-name-pattern: logs/archive/spring.%d{yyyy-MM-dd}.%d{HH:mm:ss.SSS}.%i.log
   level:
      root: info
-     
+
+jwt:
+  private-key: "classpath:app.key"
+  public-key: "classpath:app.pub"
      

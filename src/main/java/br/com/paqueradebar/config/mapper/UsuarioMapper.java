@@ -1,4 +1,4 @@
-package br.com.paqueradebar.dto.mapper;
+package br.com.paqueradebar.config.mapper;
 
 import java.util.List;
 

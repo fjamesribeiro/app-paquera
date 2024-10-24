@@ -1,4 +1,4 @@
-package br.com.paqueradebar.security;
+package br.com.paqueradebar.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;

@@ -6,8 +6,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import br.com.paqueradebar.validation.Create;
-import br.com.paqueradebar.validation.Update;
+import br.com.paqueradebar.config.validation.Create;
+import br.com.paqueradebar.config.validation.Update;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;

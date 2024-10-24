@@ -6,27 +6,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.paqueradebar.config.validation.Create;
 import br.com.paqueradebar.dto.UserAdditionalInfoDTO;
 import br.com.paqueradebar.dto.UserDTO;
-import br.com.paqueradebar.dto.UserRegistrationDTO;
 import br.com.paqueradebar.service.UsuarioService;
-import br.com.paqueradebar.validation.Create;
 
-@RestController("/usuario")
+@RestController()
+@RequestMapping("/usuario")
 public class UsuarioController {
 
 	@Autowired
 	private UsuarioService usuarioService;
-
-	@PostMapping("/createuser")
-	public ResponseEntity<UserDTO> create(@Validated(Create.class) @RequestBody UserRegistrationDTO dto) {
-		return new ResponseEntity<UserDTO>(usuarioService.createLoginUser(dto), HttpStatus.CREATED);
-	}
 
 	@PostMapping("/completecaduser")
 	public ResponseEntity<UserDTO> completeCadUser(@Validated(Create.class) @RequestBody UserAdditionalInfoDTO dto) {
@@ -36,6 +35,21 @@ public class UsuarioController {
 	@GetMapping()
 	public ResponseEntity<List<UserDTO>> findAll() {
 		return new ResponseEntity<List<UserDTO>>(usuarioService.findAll(), HttpStatus.OK);
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<UserDTO> findbyId(@PathVariable Long id) {
+		return new ResponseEntity<UserDTO>(usuarioService.findById(id), HttpStatus.OK);
+	}
+
+	@PutMapping()
+	public ResponseEntity<UserDTO> putMethodName(@RequestBody UserDTO dto) {
+		return new ResponseEntity<UserDTO>(usuarioService.update(dto), HttpStatus.OK);
+	}
+
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable Long id) {
+		usuarioService.delete(id);
 	}
 
 }

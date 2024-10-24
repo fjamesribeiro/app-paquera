@@ -1,4 +1,4 @@
-package br.com.paqueradebar.util;
+package br.com.paqueradebar.config.util;
 
 import java.util.HashSet;
 import java.util.Set;

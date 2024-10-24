@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum RoleName {
 
-	ADMIN, USER;
+	ROLE_ADMIN, ROLE_USER;
 
 	@Override
 	public String toString() {
