@@ -1,4 +1,4 @@
-package br.com.paqueradebar.controller.n;
+package br.com.paqueradebar.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,8 +14,8 @@ import br.com.paqueradebar.config.validation.Create;
 import br.com.paqueradebar.dto.AuthResponseDto;
 import br.com.paqueradebar.dto.UserDTO;
 import br.com.paqueradebar.dto.UserRegistrationDTO;
+import br.com.paqueradebar.service.AuthenticationService;
 import br.com.paqueradebar.service.UsuarioService;
-import br.com.paqueradebar.service.n.AuthenticationService;
 
 @RestController
 @RequestMapping("/auth")

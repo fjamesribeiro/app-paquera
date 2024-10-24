@@ -1,10 +1,10 @@
-package br.com.paqueradebar.service.n;
+package br.com.paqueradebar.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import br.com.paqueradebar.config.security.n.JwtService;
+import br.com.paqueradebar.config.security.JwtService;
 
 @Service
 public class AuthenticationService {

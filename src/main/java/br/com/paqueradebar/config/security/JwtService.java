@@ -1,4 +1,4 @@
-package br.com.paqueradebar.config.security.n;
+package br.com.paqueradebar.config.security;
 
 import java.time.Instant;
 import java.util.stream.Collectors;
