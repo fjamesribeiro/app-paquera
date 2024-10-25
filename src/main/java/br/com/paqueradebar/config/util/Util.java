@@ -1,4 +1,4 @@
-package br.com.paqueradebar.util;
+package br.com.paqueradebar.config.util;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,6 +18,7 @@ public class Util {
 			if (srcValue == null)
 				emptyNames.add(pd.getName());
 		}
+		
 		String[] result = new String[emptyNames.size()];
 		return emptyNames.toArray(result);
 	}
