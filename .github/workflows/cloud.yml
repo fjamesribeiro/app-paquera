@@ -1,6 +1,8 @@
 name: Pipeline for App Paquera on Cloud
 
 on:
+  push:
+    branches: [main]
   pull_request:
     branches: [main]
 
