@@ -10,6 +10,10 @@ out/
 .env
 *.sh
 
+# Ignorar chaves de autenticação
+app.key
+app.pub
+
 # Compiled class files
 *.class
 

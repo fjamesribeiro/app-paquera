@@ -3,7 +3,6 @@ package br.com.paqueradebar.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,10 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.paqueradebar.config.validation.Create;
 import br.com.paqueradebar.dto.AuthResponseDto;
+import br.com.paqueradebar.dto.LoginDto;
 import br.com.paqueradebar.dto.UserDTO;
 import br.com.paqueradebar.dto.UserRegistrationDTO;
 import br.com.paqueradebar.service.AuthenticationService;
 import br.com.paqueradebar.service.UsuarioService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
@@ -33,7 +34,7 @@ public class AuthenticationController {
 	}
 
 	@PostMapping("login")
-	public ResponseEntity<AuthResponseDto> authenticate(Authentication authentication) {
+	public ResponseEntity<AuthResponseDto> authenticate(@Valid @RequestBody LoginDto authentication) {
 
 		// 01 - Receive the token from AuthService
 		String token = authenticationService.authenticate(authentication);

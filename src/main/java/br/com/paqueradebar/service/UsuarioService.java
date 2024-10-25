@@ -5,8 +5,8 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import br.com.paqueradebar.config.exception.ResourceNotFoundException;
@@ -76,7 +76,8 @@ public class UsuarioService {
 
 		// checa se o usuário que está logado é o mesmo enviado
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String emailLogado = ((UserDetails) principal).getUsername();
+
+		String emailLogado = ((Jwt) principal).getClaim("sub"); // ou "email", dependendo do claim usado
 
 		if (!emailLogado.equalsIgnoreCase(t.getEmail())) {
 			throw new RuntimeException("O email é diferente do usuário logado");
