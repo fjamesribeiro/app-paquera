@@ -42,7 +42,7 @@ public class SecConfig {
 
 		return httpSecurity.build();
 	}
-
+	
 	@Bean
 	JwtDecoder jwtDecoder() {
 		return NimbusJwtDecoder.withPublicKey(key).build();
