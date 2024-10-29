@@ -30,7 +30,7 @@ public class JwtService {
 				.authenticate(new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getSenha()));
 
 		Instant now = Instant.now();
-		long expiry = 10L;
+		long expiry = 8640L; //1 dia
 
 		String scopes = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
 				.collect(Collectors.joining(" "));
